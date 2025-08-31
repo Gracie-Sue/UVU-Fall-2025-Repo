@@ -1,6 +1,6 @@
 //Maya ASCII 2025ff03 scene
 //Name: Grandfather_Wall_Clock.ma
-//Last modified: Sun, Aug 31, 2025 01:45:02 AM
+//Last modified: Sun, Aug 31, 2025 01:45:57 AM
 //Codeset: UTF-8
 requires maya "2025ff03";
 requires -nodeType "aiOptions" -nodeType "aiAOVDriver" -nodeType "aiAOVFilter" -nodeType "aiImagerDenoiserOidn"
@@ -11,12 +11,12 @@ fileInfo "product" "Maya 2025";
 fileInfo "version" "2025";
 fileInfo "cutIdentifier" "202409190603-cbdc5a7e54";
 fileInfo "osv" "Mac OS X 15.6.1";
-fileInfo "UUID" "7C892D75-7748-2BF1-A3AB-EBA7549B7C56";
+fileInfo "UUID" "C1B0A5B4-1644-B6BE-44A7-9EA4645991E3";
 createNode transform -s -n "persp";
 	rename -uid "37C2B961-304A-2DAD-C756-40A81CEAD556";
 	setAttr ".v" no;
-	setAttr ".t" -type "double3" 48.583148530506335 84.23145913238865 95.919188111829811 ;
-	setAttr ".r" -type "double3" -26.400000000000169 27.600000000000787 0 ;
+	setAttr ".t" -type "double3" 66.814858949045856 71.829666051416112 90.836437983602764 ;
+	setAttr ".r" -type "double3" -20.400000000000585 36.400000000001263 -9.8788023088006422e-16 ;
 	setAttr ".rp" -type "double3" 8.8817841970012523e-16 -4.4408920985006262e-16 0 ;
 	setAttr ".rpt" -type "double3" 3.5926402399151319e-15 1.6357195384103216e-15 9.1636413419363507e-16 ;
 createNode camera -s -n "perspShape" -p "persp";
