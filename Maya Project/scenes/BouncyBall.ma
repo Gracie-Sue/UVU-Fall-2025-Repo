@@ -1,6 +1,6 @@
 //Maya ASCII 2025ff03 scene
 //Name: BouncyBall.ma
-//Last modified: Sun, Aug 31, 2025 06:13:11 PM
+//Last modified: Sun, Aug 31, 2025 06:13:51 PM
 //Codeset: UTF-8
 requires maya "2025ff03";
 requires -nodeType "aiOptions" -nodeType "aiAOVDriver" -nodeType "aiAOVFilter" -nodeType "aiImagerDenoiserOidn"
@@ -11,7 +11,7 @@ fileInfo "product" "Maya 2025";
 fileInfo "version" "2025";
 fileInfo "cutIdentifier" "202409190603-cbdc5a7e54";
 fileInfo "osv" "Mac OS X 15.6.1";
-fileInfo "UUID" "52C4FAFC-B146-9739-A070-B48D3233E8F8";
+fileInfo "UUID" "B256BD65-6740-5C77-D9F9-82892C1BD296";
 createNode transform -s -n "persp";
 	rename -uid "450ACF98-364A-A874-20B6-5390B6C1C10B";
 	setAttr ".v" no;
@@ -77,11 +77,11 @@ createNode camera -s -n "sideShape" -p "side";
 	setAttr ".hc" -type "string" "viewSet -s %camera";
 	setAttr ".o" yes;
 	setAttr ".ai_translator" -type "string" "orthographic";
-createNode transform -n "pSphere1";
+createNode transform -n "Ball";
 	rename -uid "B953FA05-E547-1537-D87F-7B96A229736B";
 	setAttr ".rp" -type "double3" 0 -1 0 ;
 	setAttr ".sp" -type "double3" 0 -1 0 ;
-createNode mesh -n "pSphereShape1" -p "pSphere1";
+createNode mesh -n "BallShape" -p "Ball";
 	rename -uid "40D18363-284D-2CB5-2FAA-37A3867D12DB";
 	setAttr -k off ".v";
 	setAttr ".vir" yes;
@@ -91,13 +91,13 @@ createNode mesh -n "pSphereShape1" -p "pSphere1";
 	setAttr ".dcc" -type "string" "Ambient+Diffuse";
 	setAttr ".covm[0]"  0 1 1;
 	setAttr ".cdvm[0]"  0 1 1;
-createNode transform -n "pPlane1";
+createNode transform -n "Floor";
 	rename -uid "FD053846-7C47-071E-7D76-C094E4B915DA";
 	setAttr ".t" -type "double3" 0 -0.20755195617675803 0 ;
 	setAttr ".s" -type "double3" 24.094159651842038 1 24.094159651842038 ;
 	setAttr ".rp" -type "double3" 0 0.20755195617675803 0 ;
 	setAttr ".sp" -type "double3" 0 0.20755195617675803 0 ;
-createNode mesh -n "pPlaneShape1" -p "pPlane1";
+createNode mesh -n "FloorShape" -p "Floor";
 	rename -uid "3373C483-C548-0D5A-9A83-E6811B2723DF";
 	setAttr -k off ".v";
 	setAttr ".vir" yes;
@@ -355,14 +355,14 @@ select -ne :hardwareRenderGlobals;
 	setAttr ".hwfr" 60;
 select -ne :ikSystem;
 	setAttr -s 4 ".sol";
-connectAttr "pSphere1_translateX.o" "pSphere1.tx";
-connectAttr "pSphere1_translateY.o" "pSphere1.ty";
-connectAttr "pSphere1_translateZ.o" "pSphere1.tz";
-connectAttr "pSphere1_scaleX.o" "pSphere1.sx";
-connectAttr "pSphere1_scaleY.o" "pSphere1.sy";
-connectAttr "pSphere1_scaleZ.o" "pSphere1.sz";
-connectAttr "polySphere1.out" "pSphereShape1.i";
-connectAttr "polyExtrudeFace1.out" "pPlaneShape1.i";
+connectAttr "pSphere1_translateX.o" "Ball.tx";
+connectAttr "pSphere1_translateY.o" "Ball.ty";
+connectAttr "pSphere1_translateZ.o" "Ball.tz";
+connectAttr "pSphere1_scaleX.o" "Ball.sx";
+connectAttr "pSphere1_scaleY.o" "Ball.sy";
+connectAttr "pSphere1_scaleZ.o" "Ball.sz";
+connectAttr "polySphere1.out" "BallShape.i";
+connectAttr "polyExtrudeFace1.out" "FloorShape.i";
 relationship "link" ":lightLinker1" ":initialShadingGroup.message" ":defaultLightSet.message";
 relationship "link" ":lightLinker1" ":initialParticleSE.message" ":defaultLightSet.message";
 relationship "shadowLink" ":lightLinker1" ":initialShadingGroup.message" ":defaultLightSet.message";
@@ -376,8 +376,8 @@ connectAttr ":defaultArnoldDisplayDriver.msg" ":defaultArnoldRenderOptions.drive
 connectAttr ":defaultArnoldFilter.msg" ":defaultArnoldRenderOptions.filt";
 connectAttr ":defaultArnoldDriver.msg" ":defaultArnoldRenderOptions.drvr";
 connectAttr "polyPlane1.out" "polyExtrudeFace1.ip";
-connectAttr "pPlaneShape1.wm" "polyExtrudeFace1.mp";
+connectAttr "FloorShape.wm" "polyExtrudeFace1.mp";
 connectAttr "defaultRenderLayer.msg" ":defaultRenderingList1.r" -na;
-connectAttr "pSphereShape1.iog" ":initialShadingGroup.dsm" -na;
-connectAttr "pPlaneShape1.iog" ":initialShadingGroup.dsm" -na;
+connectAttr "BallShape.iog" ":initialShadingGroup.dsm" -na;
+connectAttr "FloorShape.iog" ":initialShadingGroup.dsm" -na;
 // End of BouncyBall.ma
