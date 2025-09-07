@@ -1,0 +1,45 @@
+//bottomSphere
+polySphere -radius 3 -subdivisionsX 20 -subdivisionsY 20 -axis 0 1 0 -createUVs 2 -constructionHistory 1;
+move -rotatePivotRelative -moveY 3 ;
+
+//middleSphere
+polySphere -radius 2.2 -subdivisionsX 20 -subdivisionsY 20 -axis 0 1 0 -createUVs 2 -constructionHistory 1;
+move -rotatePivotRelative -moveY 6.816 ;
+
+//topSphere
+polySphere -radius 1.5 -subdivisionsX 20 -subdivisionsY 20 -axis 0 1 0 -createUVs 2 -constructionHistory 1;
+move -rotatePivotRelative -moveY 9.794 ;
+
+//Make and Move Nose
+polyCone -radius 1 -height 3 -subdivisionsX 16 -subdivisionsY 1 -subdivisionsZ 0 -axis 0 0 1 -roundCap 1 -createUVs 3 -constructionHistory 1;
+move -moveYZ 9.794 2.043;
+scale -scaleXYZ 0.272 0.272 0.413;
+
+//move and scale Eyes
+polySphere -radius 1 -subdivisionsX 20 -subdivisionsY 20 -axis 0 1 0 -createUVs 2 -constructionHistory 1;
+move -moveXYZ 0.605 10.297 1.248;
+scale -scaleXYZ 0.246 0.264 0.067;
+rotate -rotateXYZ -15.004 28.768 4.665;
+//select bottom vertice, then soft select around it
+select -r pSphere4.vtx[380] ;
+softSelect -ssd 0.308273 -sud 0.5 ;
+move -r 0 0.0882382 0 ;
+softSelect -ssd 0.160737 -sud 0.5 ;
+move -r 0 0.0286519 0 ;
+//mirror other eye
+select -r pSphere4 ;
+FreezeTransformations;
+MirrorPolygonGeometry;
+polyMirrorFace  -cutMesh 1 -axis 0 -axisDirection 1 -mergeMode 1 -mergeThresholdType 0 -mergeThreshold 0.001 -mirrorAxis 2 -mirrorPosition 0 -smoothingAngle 30 -flipUVs 0 -ch 1 pSphere4;
+
+//makehat
+polyCylinder -r 1 -h 2 -sx 20 -sy 4 -sz 1 -ax 0 1 0 -rcp 0 -cuv 3 -ch 1;
+select -r pCylinder1;
+selectMode -component;
+//Extrude selected Faces
+select -r pCylinder1.f[0:19];
+polyExtrudeFacet -constructionHistory 1 -keepFacesTogether 1 -divisions 1 -twist 0 -taper 1 -off 0 -thickness 0 -smoothingAngle 30 pCylinder1.f[0:19];
+setAttr "polyExtrudeFace1.scale" -type double3 1.971712 1 1.971712;
+select -d pCylinder1.f[0:19];
+//Put Hat on head
+move -r 0 12.068 0 pCylinder1;
