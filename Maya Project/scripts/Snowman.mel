@@ -20,26 +20,37 @@ polySphere -radius 1 -subdivisionsX 20 -subdivisionsY 20 -axis 0 1 0 -createUVs 
 move -moveXYZ 0.605 10.297 1.248;
 scale -scaleXYZ 0.246 0.264 0.067;
 rotate -rotateXYZ -15.004 28.768 4.665;
-//select bottom vertice, then soft select around it
-select -r pSphere4.vtx[380] ;
-softSelect -ssd 0.308273 -sud 0.5 ;
-move -r 0 0.0882382 0 ;
-softSelect -ssd 0.160737 -sud 0.5 ;
-move -r 0 0.0286519 0 ;
 //mirror other eye
 select -r pSphere4 ;
 FreezeTransformations;
 MirrorPolygonGeometry;
 polyMirrorFace  -cutMesh 1 -axis 0 -axisDirection 1 -mergeMode 1 -mergeThresholdType 0 -mergeThreshold 0.001 -mirrorAxis 2 -mirrorPosition 0 -smoothingAngle 30 -flipUVs 0 -ch 1 pSphere4;
 
-//makehat
-polyCylinder -r 1 -h 2 -sx 20 -sy 4 -sz 1 -ax 0 1 0 -rcp 0 -cuv 3 -ch 1;
-select -r pCylinder1;
-selectMode -component;
-//Extrude selected Faces
-select -r pCylinder1.f[0:19];
-polyExtrudeFacet -constructionHistory 1 -keepFacesTogether 1 -divisions 1 -twist 0 -taper 1 -off 0 -thickness 0 -smoothingAngle 30 pCylinder1.f[0:19];
-setAttr "polyExtrudeFace1.scale" -type double3 1.971712 1 1.971712;
-select -d pCylinder1.f[0:19];
-//Put Hat on head
-move -r 0 12.068 0 pCylinder1;
+// Make Hat
+string $hat[] = `polyCylinder -r 1 -h 2 -sx 20 -sy 4 -sz 1 -ax 0 1 0 -rcp 0 -cuv 3 -ch 1`;
+string $hatShape = $hat[0];
+// Extrude selected faces
+select -r ($hatShape + ".f[0:19]");
+string $extrude[] = `polyExtrudeFacet -constructionHistory 1 -keepFacesTogether 1 -divisions 1 -twist 0 -taper 1 -off 0 -thickness 0 -smoothingAngle 30 ($hatShape + ".f[0:19]")`;
+setAttr ($extrude[0] + ".scale") -type double3 1.971712 1 1.971712;
+// Clear selection
+select -cl;
+// Put Hat on head
+move -r 0 12.068 0 $hatShape;
+
+
+//Stick arms
+polyCylinder -r 1 -h 3 -sx 20 -sy 1 -sz 1 -ax 0 1 0 -rcp 0 -cuv 3 -ch 1;
+scale -r 0.11796 1 0.11796 ;
+
+polyCylinder -r 1 -h .75 -sx 20 -sy 1 -sz 1 -ax 0 1 0 -rcp 0 -cuv 3 -ch 1;
+scale -r 0.11796 1 0.11796 ;
+move -moveY 0.994;
+rotate -rotateZ -45;
+move -moveXY 0.288 0.994;
+MirrorPolygonGeometry;
+polyMirrorFace  -cutMesh 1 -axis 0 -axisDirection 1 -mergeMode 1 -mergeThresholdType 0 -mergeThreshold 0.001 -mirrorAxis 2 -mirrorPosition 0 -smoothingAngle 30 -flipUVs 0 -ch 1 pCylinder3;
+
+select -r pCylinder3 pCylinder2 ;
+doGroup 0 1 1;
+
