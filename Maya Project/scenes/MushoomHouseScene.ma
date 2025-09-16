@@ -1,6 +1,6 @@
 //Maya ASCII 2025ff03 scene
 //Name: MushoomHouseScene.ma
-//Last modified: Sun, Sep 14, 2025 12:40:44 AM
+//Last modified: Sun, Sep 14, 2025 06:38:27 PM
 //Codeset: UTF-8
 requires maya "2025ff03";
 requires "mtoa" "5.4.5";
@@ -10,12 +10,12 @@ fileInfo "product" "Maya 2025";
 fileInfo "version" "2025";
 fileInfo "cutIdentifier" "202409190603-cbdc5a7e54";
 fileInfo "osv" "Mac OS X 15.6.1";
-fileInfo "UUID" "248E7DC2-404C-F93F-7908-7B81A95A81AF";
+fileInfo "UUID" "28944BC8-D442-8648-597D-028B814D34E4";
 createNode transform -s -n "persp";
 	rename -uid "5352C0AF-724E-F8EE-7409-9A9F49172666";
 	setAttr ".v" no;
-	setAttr ".t" -type "double3" 603.3439224800743 3388.3788257750575 5185.1821836134004 ;
-	setAttr ".r" -type "double3" -41.138352729433834 396.19999999984088 0 ;
+	setAttr ".t" -type "double3" 1842.0848674503166 2777.4830743296584 4234.3727482839276 ;
+	setAttr ".r" -type "double3" -29.138352729433816 406.5999999998395 -2.3145193526588704e-15 ;
 	setAttr ".rp" -type "double3" -9.0949470177292824e-13 0 0 ;
 	setAttr ".rpt" -type "double3" -1.617846974089853e-13 3.205751511208311e-13 8.8487844695604186e-14 ;
 createNode camera -s -n "perspShape" -p "persp";
