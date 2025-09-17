@@ -1,0 +1,34 @@
+float $size = 5;
+
+// Make Snowman Body
+polySphere -radius $size -subdivisionsX 20 -subdivisionsY 20 -axis 0 1 0 -createUVs 2 -constructionHistory 1;
+move -relative -objectSpace -worldSpaceDistance 0 $size 0 ;
+
+polySphere -radius ($size - 1) -subdivisionsX 20 -subdivisionsY 20 -axis 0 1 0 -createUVs 2 -constructionHistory 1;
+move -relative -objectSpace -worldSpaceDistance 0 (($size * 2) + ($size - 2)) 0 ;
+
+polySphere -radius ($size - 2) -subdivisionsX 20 -subdivisionsY 20 -axis 0 1 0 -createUVs 2 -constructionHistory 1;
+move -relative -objectSpace -worldSpaceDistance 0 (($size * 2) + ($size - 1) + ($size - 2) + ($size - 2.5)) 0 ;
+
+// Make Nose
+polyCone -radius 1 -height 2 -subdivisionsX 20 -subdivisionsY 1 -subdivisionsZ 0 -axis 0 1 0 -roundCap 0 -createUVs 3 -constructionHistory 1;
+rotate -relative -objectSpace -forceOrderXYZ 90 0 0 ;
+move -relative 0 (($size * 2) + ($size - 1) + ($size - 2) + ($size - 2.5)) ($size - 1);
+move -relative 0 0 -1 pCone1.scalePivot pCone1.rotatePivot ;
+// Maintain Nose Size
+float $headRadius = ($size - 2);
+scale -relative ($headRadius * 0.2) ($headRadius * 0.4) ($headRadius * 0.2);
+
+//Make Hat
+string $hat[] = `polyCylinder -radius 1 -height 2 -subdivisionsX 20 -subdivisionsY 4 -subdivisionsZ 1 -axis 0 1 0 -roundCap 0 -createUVs 3 -constructionHistory 1`;
+string $hatShape = $hat[0];
+select -replace ($hatShape + ".f[0:19]");
+string $extrude[] = `polyExtrudeFacet -constructionHistory 1 -keepFacesTogether 1 -divisions 1 -twist 0 -taper 1 -off 0 -thickness 0 -smoothingAngle 30 ($hatShape + ".f[0:19]")`;
+setAttr ($extrude[0] + ".scale") -type double3 1.971712 1 1.971712;
+select -clear;
+select -replace pCylinder1 ;
+move -relative 0 -1 0 pCylinder1.scalePivot pCylinder1.rotatePivot ;
+move -rotatePivotRelative -y 0 ;
+//Maintains Size and Scale
+scale -relative ($headRadius * 0.8) ($headRadius * 0.8) ($headRadius * 0.8) $hatShape;
+move -relative 0 ((($size * 2) + (($size - 1) * 2) + (($size - 2) * 2) - 1.5)) 0;
