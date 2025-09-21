@@ -1,1 +1,22 @@
-//Spiral Staircase
+
+proc BuildStaircase(int $steps, float $length, float $width, float $Height, float $offset, float $stepHeight, float $rotation)
+{
+    for ($i = 0; $i < $steps; $i++)
+    {
+        // create one step
+        string $cube[] = `polyCube -w $length -h $Height -d $width -subdivisionsX 1 -subdivisionsY 1 -subdivisionsZ 1 -axis 0 1 0 -createUVs 4 -constructionHistory 1`;
+
+        // move pivot
+        move -relative (-$length/2) 0 0 ($cube[0] + ".scalePivot") ($cube[0] + ".rotatePivot");
+
+        // Rotate around the column
+        move -relative 0 ($i * $stepHeight) 0 $cube[0];
+
+        //Makes spiral shape, not overlapping
+        move -relative $offset 0 0 $cube[0];
+        float $angle = ($rotation / $steps) * $i;
+        rotate -relative -objectSpace -forceOrderXYZ 0 $angle 0 $cube[0];
+    }
+}
+
+BuildStaircase(32, 4, 1, 1, 6, .5, 720);
