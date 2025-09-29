@@ -1,1 +1,124 @@
-Calculator_1
+global float $input[];
+$input = {2, 4}; // Change this array to update input for all functions
+
+//Addition
+proc float Add()
+{
+    global float $input[];
+    float $sum = 0;
+    int $size = size($input); //number of items in array
+    int $i; //declares what i means
+        for ($i = 0; $i < $size; $i++) // start with  first array number, continues loop until it hits the last number, incremeints i to get to the next number
+        {
+            $sum += $input[$i];
+        }
+    return $sum;
+}
+
+//Subtraction
+proc float Subtract()
+{
+    global float $input[];
+    float $diff = $input[0];
+    int $size = size($input);
+    int $i;
+        for ($i = 1; $i < $size; $i++)
+        {
+            $diff -= $input[$i];
+        }
+    return $diff;
+}
+
+//Multiplication
+proc float Multiply()
+{
+    global float $input[];
+    float $prod = 1; // so prod isn't always 0
+    int $size = size($input);
+    int $i;
+        for ($i = 0; $i < $size; $i++)
+        {
+            $prod *= $input[$i];
+        }
+    return $prod;
+}
+
+//Division
+proc float Divide()
+{
+    global float $input[];
+    float $quo = $input[0]; // start with first number
+    int $size = size($input);
+    int $i;
+        for ($i = 1; $i < $size; $i++) //change i to 1 so its not a decimal behind
+        {
+            $quo /= $input[$i];
+        }
+    return $quo;
+}
+
+//Power
+proc float Power()
+{
+    global float $input[];
+    if (size($input) == 2) 
+        {
+        float $Base = $input[0]; //First number
+        float $Exp = $input[1]; //Second number
+        return pow($Base, $Exp);
+        }
+    else
+        {
+        print(" Please enter 2 numbers.\n");
+        return 0;
+    }
+}
+
+//Average
+proc float Average()
+{
+    global float $input[];
+    float $sum = Add(); //reuse Addition code
+    int $size = size($input);
+    return $sum / $size;
+}
+
+//Median
+proc float Median()
+{
+    global float $input[];
+    int $size = size($input);
+    float $sorted[];
+    int $i, $j;
+    float $temp; //temporary variable for swapping
+
+    // Copy input to sorted array to avoid changing the global input
+    for ($i = 0; $i < $size; $i++)
+    {
+        $sorted[$i] = $input[$i];
+    }
+
+    // Sort the numbers
+    for ($i = 0; $i < $size; $i++)
+    {
+        for ($j = 0; $j < $size - $i - 1; $j++)
+        {
+            if ($sorted[$j] > $sorted[$j+1])
+            {
+                $temp = $sorted[$j];
+                $sorted[$j] = $sorted[$j+1];
+                $sorted[$j+1] = $temp;
+            }
+        }
+    }
+
+    if ($size % 2 == 1)
+    {
+        return $sorted[(int)($size/2)]; // middle element for odd-sized array
+    }
+    else
+    {
+        int $mid = $size/2;
+        return ($sorted[$mid-1] + $sorted[$mid]) / 2.0; // average of two middle elements for even-sized array
+    }
+}
