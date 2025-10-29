@@ -1,0 +1,67 @@
+// === CALCULATOR UI ===
+global proc calculatorUI()
+{
+    if (`window -exists calculatorWindow`)
+        deleteUI calculatorWindow;
+
+    // change window size
+    string $window = `window -title "Calculator" -widthHeight 640 200 -sizeable true calculatorWindow`;
+    string $col = `columnLayout -parent $window -adjustableColumn true`;
+    string $rowInput = `rowLayout -parent $col -numberOfColumns 2 -columnWidth2 240 280 -height 30`;
+    //align left to fix Label Cuttoff issue
+    text -parent $rowInput -label "Enter numbers (comma-separated):" -align "left" -width 240;
+    textField -parent $rowInput -width 280 numbersField;
+
+    // Match label width to input row
+    string $rowOp = `rowLayout -parent $col -numberOfColumns 2 -columnWidth2 240 280 -height 30`;
+    text -parent $rowOp -label "Operation:" -align "left" -width 240;
+    optionMenu -parent $rowOp operationMenu;
+        menuItem -parent operationMenu -label "Add";
+        menuItem -parent operationMenu -label "Subtract";
+        menuItem -parent operationMenu -label "Multiply";
+        menuItem -parent operationMenu -label "Divide";
+        menuItem -parent operationMenu -label "Power";
+        menuItem -parent operationMenu -label "Average";
+        menuItem -parent operationMenu -label "Median";
+
+    button -parent $col -label "Calculate" -height 40 -command "calculateFromUI()";
+
+    // result Display size
+    string $rowResult = `rowLayout -parent $col -numberOfColumns 2 -columnWidth2 240 280 -height 30`;
+    text -parent $rowResult -label "Result:" -align "left" -width 240;
+    textField -parent $rowResult -editable false -width 280 resultField;
+
+    showWindow $window;
+}
+
+// Function that reads UI input and calls Calculator code
+global proc calculateFromUI()
+{
+    string $numText = `textField -q -text numbersField`;
+    string $op = `optionMenu -q -value operationMenu`;
+
+    // Convert string into an array
+    string $numList[] = `split $numText ","`;
+    float $numbers[];
+    int $i;
+    for ($i = 0; $i < size($numList); $i++)
+    {
+        $numbers[$i] = float($numList[$i]);
+    }
+
+    Calculator($op, $numbers);
+
+    // Display result in UI
+    float $result = 0;
+    if ($op == "Add") $result = Add($numbers);
+    else if ($op == "Subtract") $result = Subtract($numbers);
+    else if ($op == "Multiply") $result = Multiply($numbers);
+    else if ($op == "Divide") $result = Divide($numbers);
+    else if ($op == "Power") $result = Power($numbers);
+    else if ($op == "Average") $result = Average($numbers);
+    else if ($op == "Median") $result = Median($numbers);
+
+    textField -e -text $result resultField;
+}
+
+calculatorUI();

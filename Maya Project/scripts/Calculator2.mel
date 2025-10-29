@@ -1,4 +1,3 @@
-
 //Addition
 global proc float Add(float $input[])
 {
@@ -114,8 +113,6 @@ global proc float Median(float $input[])
     }
 }
 
-
-
 //Actual Calculator Part
 global proc Calculator(string $funct, float $arry[])
 {
@@ -128,17 +125,14 @@ global proc Calculator(string $funct, float $arry[])
 
         for($i = 0; $i < $size; $i++) //this is to figure out what grammar to use
         {
-            // if it's the last number, just print it
             if($i == $size - 1)
             {
                 print($arry[$i]);
             }
-            // if it's the second-to-last number, use "and"
             else if($i == $size - 2)
             {
                 print($arry[$i] + " and ");
             }
-            // otherwise use a comma
             else
             {
                 print($arry[$i] + ", ");
@@ -151,19 +145,16 @@ global proc Calculator(string $funct, float $arry[])
     {
         print("The difference of ");
 
-        for($i = 0; $i < $size; $i++) //this is to figure out what grammar to use
+        for($i = 0; $i < $size; $i++)
         {
-            // if it's the last number, just print it
             if($i == $size - 1)
             {
                 print($arry[$i]);
             }
-            // if it's the second-to-last number, use "and"
             else if($i == $size - 2)
             {
                 print($arry[$i] + " and ");
             }
-            // otherwise use a comma
             else
             {
                 print($arry[$i] + ", ");
@@ -175,19 +166,16 @@ global proc Calculator(string $funct, float $arry[])
     {
         print("The product of ");
 
-        for($i = 0; $i < $size; $i++) //this is to figure out what grammar to use
+        for($i = 0; $i < $size; $i++)
         {
-            // if it's the last number, just print it
             if($i == $size - 1)
             {
                 print($arry[$i]);
             }
-            // if it's the second-to-last number, use "and"
             else if($i == $size - 2)
             {
                 print($arry[$i] + " and ");
             }
-            // otherwise use a comma
             else
             {
                 print($arry[$i] + ", ");
@@ -199,19 +187,16 @@ global proc Calculator(string $funct, float $arry[])
     {
         print("The quotient of ");
 
-        for($i = 0; $i < $size; $i++) //this is to figure out what grammar to use
+        for($i = 0; $i < $size; $i++)
         {
-            // if it's the last number, just print it
             if($i == $size - 1)
             {
                 print($arry[$i]);
             }
-            // if it's the second-to-last number, use "and"
             else if($i == $size - 2)
             {
                 print($arry[$i] + " and ");
             }
-            // otherwise use a comma
             else
             {
                 print($arry[$i] + ", ");
@@ -223,19 +208,16 @@ global proc Calculator(string $funct, float $arry[])
     {
         print("The power of ");
 
-        for($i = 0; $i < $size; $i++) //this is to figure out what grammar to use
+        for($i = 0; $i < $size; $i++)
         {
-            // if it's the last number, just print it
             if($i == $size - 1)
             {
                 print($arry[$i]);
             }
-            // if it's the second-to-last number, use "and"
             else if($i == $size - 2)
             {
                 print($arry[$i] + " and ");
             }
-            // otherwise use a comma
             else
             {
                 print($arry[$i] + ", ");
@@ -247,19 +229,16 @@ global proc Calculator(string $funct, float $arry[])
     {
         print("The average of ");
 
-        for($i = 0; $i < $size; $i++) //this is to figure out what grammar to use
+        for($i = 0; $i < $size; $i++)
         {
-            // if it's the last number, just print it
             if($i == $size - 1)
             {
                 print($arry[$i]);
             }
-            // if it's the second-to-last number, use "and"
             else if($i == $size - 2)
             {
                 print($arry[$i] + " and ");
             }
-            // otherwise use a comma
             else
             {
                 print($arry[$i] + ", ");
@@ -271,19 +250,16 @@ global proc Calculator(string $funct, float $arry[])
     {
         print("The median of ");
 
-        for($i = 0; $i < $size; $i++) //this is to figure out what grammar to use
+        for($i = 0; $i < $size; $i++)
         {
-            // if it's the last number, just print it
             if($i == $size - 1)
             {
                 print($arry[$i]);
             }
-            // if it's the second-to-last number, use "and"
             else if($i == $size - 2)
             {
                 print($arry[$i] + " and ");
             }
-            // otherwise use a comma
             else
             {
                 print($arry[$i] + ", ");

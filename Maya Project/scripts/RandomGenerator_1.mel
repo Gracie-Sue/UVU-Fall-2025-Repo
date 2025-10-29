@@ -1,1 +1,72 @@
-//Random Placement Generator
+// Random Placement Generator
+
+if (`window -exists RandomGenerator`)
+    deleteUI RandomGenerator;
+
+string $window = `window -title "RandomGenerator" -widthHeight 300 270`;
+columnLayout -adjustableColumn true;
+
+//make text Bigger
+rowLayout -numberOfColumns 2 -columnWidth2 160 100 -height 40;
+    text -label "Number of Objects:" -align "right";
+    intField numfield;
+setParent ..;
+
+gridLayout -numberOfColumns 2 -cellWidthHeight 150 25;
+
+// Red
+text -label "Min X:" -bgc 1 0.6 0.6;
+floatField minXfield;
+text -label "Max X:" -bgc 1 0.3 0.3;
+floatField maxXfield;
+
+// Green
+text -label "Min Y:" -bgc 0.6 1 0.6;
+floatField minYfield;
+text -label "Max Y:" -bgc 0.3 1 0.3;
+floatField maxYfield;
+
+// Blue
+text -label "Min Z:" -bgc 0 0.6 1;
+floatField minZfield;
+text -label "Max Z:" -bgc 0 0.3 1;
+floatField maxZfield;
+
+button -label "Run" -command "myFunction()";
+
+showWindow $window;
+
+
+// === FUNCTION ===
+global proc myFunction()
+{
+    int $numval = `intField -q -value numfield`;
+
+    float $minX = `floatField -q -value minXfield`;
+    float $maxX = `floatField -q -value maxXfield`;
+    float $minY = `floatField -q -value minYfield`;
+    float $maxY = `floatField -q -value maxYfield`;
+    float $minZ = `floatField -q -value minZfield`;
+    float $maxZ = `floatField -q -value maxZfield`;
+
+    string $selection[] = `ls -sl`;
+
+    if (size($selection) == 0)
+    {
+        error "Please select at least one object.";
+    }
+
+    for ($obj in $selection)
+    {
+        for ($i = 0; $i < $numval; $i++)
+        {
+            string $dup[] = `duplicate $obj`;
+
+            float $randX = rand($minX, $maxX);
+            float $randY = rand($minY, $maxY);
+            float $randZ = rand($minZ, $maxZ);
+
+            xform -translation $randX $randY $randZ $dup[0];
+        }
+    }
+}
